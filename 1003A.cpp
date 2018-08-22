@@ -24,20 +24,15 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n, k;
-    cin >> n >> k;
-    VI a;
+    int n;
+    cin >> n;
+    vector<int> a(101);
     for(int i = 0; i < n; i++) {
         int ai;
         cin >> ai;
-        a.push_back(ai);
+        a[ai]++;
     }
-    int score = a[k-1];
-    int i = 0;
-    while(a[i] >= score && a[i] != 0 && i < n) {
-        i++;
-    }
-    cout << i;
-
+    sort(a.rbegin(), a.rend());
+    cout << a[0];
     return 0;
 }
