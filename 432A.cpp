@@ -26,18 +26,15 @@ int main() {
 
     int n, k;
     cin >> n >> k;
-    VI a;
+    int num = 0;
     for(int i = 0; i < n; i++) {
-        int ai;
-        cin >> ai;
-        a.push_back(ai);
+        int p;
+        cin >> p;
+        if(p <= 5 - k) {
+            num++;
+        }
     }
-    int score = a[k-1];
-    int i = 0;
-    while(a[i] >= score && a[i] != 0 && i < n ) {
-        i++;
-    }
-    cout << i;
-
+    cout << num / 3;
+    
     return 0;
 }

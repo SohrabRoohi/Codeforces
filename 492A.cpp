@@ -23,21 +23,23 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n, k;
-    cin >> n >> k;
-    VI a;
-    for(int i = 0; i < n; i++) {
-        int ai;
-        cin >> ai;
-        a.push_back(ai);
+    
+    int n;
+    cin >> n;
+    int dp[10000];
+    int sum = 1;
+    int num = 1;
+    dp[0] = 1;
+    while(sum < n) {
+        dp[num] = dp[num-1] + num + 1;
+        sum += dp[num];
+        num++;
     }
-    int score = a[k-1];
-    int i = 0;
-    while(a[i] >= score && a[i] != 0 && i < n ) {
-        i++;
+    if(sum > n) {
+        cout << num - 1;
     }
-    cout << i;
-
+    else {
+        cout << num;
+    }
     return 0;
 }

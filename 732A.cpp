@@ -23,21 +23,13 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n, k;
-    cin >> n >> k;
-    VI a;
-    for(int i = 0; i < n; i++) {
-        int ai;
-        cin >> ai;
-        a.push_back(ai);
+    
+    int k, r;
+    cin >> k >> r;
+    int num = 1;
+    while (k * num % 10 != r && k * num % 10 != 0) {
+        num++;
     }
-    int score = a[k-1];
-    int i = 0;
-    while(a[i] >= score && a[i] != 0 && i < n ) {
-        i++;
-    }
-    cout << i;
-
+    cout << num;
     return 0;
 }
