@@ -37,26 +37,18 @@ int main() {
     cin.tie(NULL);
     cout << fixed;
 
-    int n;
-    cin >> n;
-    vector<int> values(3);
-    cin >> values[0] >> values[1] >> values[2];
-    sort(values.begin(), values.end());
-    int cuts = 0;
-    int index = 0;
-    while(true) {
-        if(index == 3) {
-            break;
-        }
-        if(values[index] <= n) {
-            n -= values[index];
-            if(n )
-            cuts++;
-        }
-        else {
-            index++;
-        }
+    int n, a , b, c;
+    cin >> n >> a >> b >> c;
+    int dp[n+1] = {};
+    for(int i = a; i < n + 1; i++) {
+        dp[i] = max(dp[i], 1 + dp[i-a]);
     }
-    cout << cuts;
+    for(int i = b; i < n + 1; i++) {
+        dp[i] = max(dp[i], 1 + dp[i-b]);
+    }
+    for(int i = c; i < n + 1; i++) {
+        dp[i] = max(dp[i], 1 + dp[i-c]);
+    }
+    cout << dp[n];
     return 0;
 }
