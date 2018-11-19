@@ -42,7 +42,7 @@ int main() {
         int f, s;
         f = a[i].first;
         s = a[i].second;
-        if(f >= day && s >= day) {
+        if(f >= day && s > day) {
             day = min(f,s);
         }
         else if(s >= day) {
