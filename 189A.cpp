@@ -39,7 +39,8 @@ int main() {
 
     int n, a , b, c;
     cin >> n >> a >> b >> c;
-    int dp[n+1] = {};
+    int dp[n+1];
+    fill(dp, dp+n+1, -INT_MAX); dp[0]=0;
     for(int i = a; i < n + 1; i++) {
         dp[i] = max(dp[i], 1 + dp[i-a]);
     }
