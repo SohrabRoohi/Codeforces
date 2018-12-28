@@ -31,34 +31,26 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int n;
-    cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
+    string s;
+    int k;
+    cin >> s >> k;
+    unordered_map<char,int> m;
+    vector<pair<int,char>> a;
+    for(int i = 0; i <= 25; i++) {
         int v;
         cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+        char cur = (char)('a' + i);
+        m[cur] = v;
+        a.push_back(make_pair(v, cur));
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
-        }
+    sort(a.rbegin(), a.rend());
+    int ans = 0;
+    for(int i = 1; i <= s.length(); i++) {
+        ans += i * m[s[i-1]];
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
+    for(int i = s.length() + 1; i <= s.length() + k; i++) {
+        ans += i * a[0].first;
     }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << ans;
     return 0;
 }

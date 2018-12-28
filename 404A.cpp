@@ -33,32 +33,36 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
-    }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    vector<vector<char>> grid(n, vector<char>(n));
+    for(int i = 0 ; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            char c;
+            cin >> c;
+            grid[i][j] = c;
         }
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
+    char d = grid[0][0];
+    char nd = grid[0][1];
+    if(d == nd) {
+        cout << "NO";
+        return 0;
     }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
+    for(int i = 0 ; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(i == j || i + j == n - 1) {
+                if(grid[i][j] != d) {
+                    cout << "NO";
+                    return 0;
+                }
+            }
+            else {
+                if(grid[i][j] != nd) {
+                    cout << "NO";
+                    return 0;
+                }
+            }
+        }
     }
+    cout << "YES";
     return 0;
 }

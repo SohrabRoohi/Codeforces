@@ -33,32 +33,30 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+    int left = 0;
+    int right = 0;
+    vector<int> L;
+    vector<int> R;
+    for(int i = 0; i < n ; i++) {
+        int l, r;
+        cin >> l >> r;
+        L.push_back(l);
+        R.push_back(r);
+        left += l;
+        right += r;
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    int cur = abs(left-right);
+    int index = 0;
+    for(int i = 0; i < n; i++) {
+        int lc = L[i];
+        int rc = R[i];
+        int tempL = left - lc + rc;
+        int tempR = right - rc + lc;
+        if(abs(tempL-tempR) > cur) {
+            index = i + 1;
+            cur = abs(tempL-tempR);
         }
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
-    }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << index;
     return 0;
 }

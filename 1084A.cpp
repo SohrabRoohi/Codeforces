@@ -33,32 +33,21 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
+    VI a;
+    for(int i = 0; i < n; i++) {
         int v;
         cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+        a.push_back(v);
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    int low = 1;
+    int minCost = INT_MAX;
+    for(int x = 1; x <= n; x++) {
+        int cost = 0;
+        for (int i = 1; i <= n; i++) {
+            cost += 2 * a[i-1] * (abs(x-i) + abs(i-low) + abs(low-x));
         }
+        minCost = min(minCost, cost);
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
-    }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << minCost;
     return 0;
 }

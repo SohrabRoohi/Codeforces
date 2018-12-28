@@ -33,32 +33,27 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+    string s;
+    cin >> s;
+    char first = s[0];
+    char last = s[s.length() - 1];
+    int64 count = 1;
+    int64 firstCount = 0;
+    int64 lastCount = 0;
+    for(int i = 0; i < s.length() - 1 && s[i] == first; i++) {
+        count++;
+        count %= 998244353;
+        firstCount++;
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
-        }
+    for(int i = s.length() - 1; i >= 0 && s[i] == last; i--) {
+        count++;
+        count %= 998244353;
+        lastCount++;
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
+    if(first == last) {
+        count += firstCount * lastCount;
+        count %= 998244353;
     }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << count;
     return 0;
 }

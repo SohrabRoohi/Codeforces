@@ -33,32 +33,35 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
+    unordered_map<int,int> m;
+    for(int i = 0; i < n; i++) {
         int v;
         cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+        m[v]++;
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    int count = 0;
+    int sum = 0;
+    for(int i = 1; i <= m[5]; i++) {
+        sum += 5;
+        if(sum % 9 == 0) {
+            count = i;
         }
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
+    if(m[0] == 0) {
+        cout << -1;
     }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
+    else if(count == 0) {
+        cout << 0;
+    }
+    else {
+        string ans = "";
+        for(int i = 0; i < count; i++) {
+            ans += '5';
+        }
+        for(int i = 0; i < m[0]; i++) {
+            ans += '0';
+        }
+        cout << ans;
     }
     return 0;
 }

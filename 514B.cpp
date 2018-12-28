@@ -32,33 +32,15 @@ int main() {
     cin.tie(NULL);
     
     int n;
-    cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+    double x1, y1;
+    cin >> n >> x1 >> y1;
+    unordered_map<double,int> m;
+    for(int i = 0; i < n; i++) {
+        double x2, y2;
+        cin >> x2 >> y2;
+        double slope = x2-x1 != 0 ? (y2-y1) / (x2-x1) : INT_MAX;
+        m[slope]++;
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
-        }
-    }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
-    }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << m.size();
     return 0;
 }

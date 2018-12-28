@@ -31,34 +31,17 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int n;
-    cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+    int n, c;
+    cin >> n >> c;
+    int maxV = 0;
+    int prev;
+    cin >> prev;
+    for(int i = 1; i < n; i++) {
+        int cur;
+        cin >> cur;
+        maxV = max(maxV, prev - cur - c);
+        prev = cur;
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
-        }
-    }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
-    }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << maxV;
     return 0;
 }

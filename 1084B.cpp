@@ -30,35 +30,33 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
-    int n;
-    cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
+    vector<int64> a;
+    int64 n, s;
+    cin >> n >> s;
+    for(int i = 0 ; i < n ; i++) {
+        int64 v;
         cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
+        a.push_back(v);
     }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    int64 minV = *min_element(a.begin(), a.end());
+    int64 sum = 0;
+    int64 total = 0;
+    for(int64 i : a) {
+        if(i != minV) {
+            sum += abs(i-minV);
         }
+        total += i;
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
+    if(total < s) {
+        cout << - 1;
+        return 0;
     }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
+    if(sum >= s) {
+        cout << minV;
+    }
+    else {
+        int64 result = (int64)ceil((double)(s - sum) / n);
+        cout << minV - result;
     }
     return 0;
 }

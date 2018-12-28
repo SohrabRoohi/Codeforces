@@ -33,32 +33,24 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
-    }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    string s;
+    cin >> s;
+    int deleted = 0;
+    for(int i = 2; i < s.length(); i++) {
+        char p1 = s[i-2];
+        char p2 = s[i-1];
+        if(p1 == 'x' && p2 == 'x') {
+            bool done = false;
+            while(i < s.length() && !done) {
+                done = true;
+                if(s[i] == 'x') {
+                    s.erase(s.begin() + i);
+                    deleted++;
+                    done = false;
+                }
+            }
         }
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
-    }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
-    }
+    cout << deleted;
     return 0;
 }

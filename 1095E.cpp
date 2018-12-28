@@ -33,32 +33,29 @@ int main() {
     
     int n;
     cin >> n;
-    VI ans;
-    int64 sum = 0;
-    vector<pair<int,int>> a;
-    for(int i = 1; i <= n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(make_pair(v,i));
-        sum += v;
-    }
-    sort(a.begin(), a.end());
-    int64 goal = a[a.size()- 1].first;
-    sum -= goal;
-    for(int i = 0; i < a.size() - 1; i++) {
-        if(sum - a[i].first == goal) {
-            ans.push_back(a[i].second);
+    string s;
+    cin >> s;
+    vector<int> left(n, 0);
+    vector<int> right(n, 0);
+    for(int i = 0; i < s.length(); i++) {
+        int prevl = i > 0 ? left[i-1] : 0;
+        int prevr = i > 0 ? right[i-1] : 0;
+        if(s[i] == '(') {
+            left[i] = 1 + prevl;
+            right[i] = prevr;
+        }
+        else {
+
+            right[i] = 1 + prevr;
+            left[i] = prevl;
         }
     }
-    int lastIndex = a[a.size()-1].second;
-    int secondLast = a[a.size()-2].first;
-    sum -= secondLast;
-    if(sum == secondLast) {
-        ans.push_back(lastIndex);
-    }
-    cout << ans.size() << endl;
-    for(int i : ans) {
-        cout << i << " ";
+    int64 ans = 0;
+    for(int i = 0; i < s.length(); i++) {
+        if((i == 0 && s[i] == '(') || (i == s.length() - 1 && s[i] == ')')) {
+            continue;
+        }
+
     }
     return 0;
 }
