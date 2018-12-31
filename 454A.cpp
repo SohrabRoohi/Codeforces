@@ -33,22 +33,33 @@ int main() {
 
     int n;
     cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    for(int i = n / 2; i > 0; i--) {
+        for(int j = 0; j < i; j++) {
+            cout << "*";
+        }
+        for(int j = 0; j < n - 2 * i; j++) {
+            cout << "D";
+        }
+        for(int j = 0; j < i; j++) {
+            cout << "*";
+        }
+        cout << endl;
+    }
     for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        cout << "D";
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    cout << endl;
+    for(int i = 1; i <= n / 2; i++) {
+        for(int j = 0; j < i; j++) {
+            cout << "*";
+        }
+        for(int j = 0; j < n - 2 * i; j++) {
+            cout << "D";
+        }
+        for(int j = 0; j < i; j++) {
+            cout << "*";
+        }
+        cout << endl;
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
     return 0;
 }

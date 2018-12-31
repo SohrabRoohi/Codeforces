@@ -31,24 +31,18 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
-    }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
-    }
-    int64 goal = sum / 3;
-    int64 ways = 0;
+    int moves = 0;
+    string s;
+    cin >> s;
 
-    cout << ways;
+    char start = 'a';
+    for(int i = 0; i < s.length(); i++) {
+        char cur = s[i];
+        int noLoopDist = abs((int)cur - (int)start);
+        int loopDist = abs(noLoopDist-26);
+        moves += min(noLoopDist, loopDist);
+        start = cur;
+    }
+    cout << moves;
     return 0;
 }

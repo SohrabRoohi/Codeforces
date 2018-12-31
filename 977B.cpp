@@ -31,24 +31,22 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+    int maxS = 0;
+    string gram = "";
+    unordered_map<string, int> m;
     int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    string s;
+    cin >> n >> s;
+    for(int i = 0; i < n - 1; i++) {
+        string cur = "";
+        cur += s[i];
+        cur += s[i+1];
+        m[cur]++;
+        if(m[cur] > maxS) {
+            maxS = m[cur];
+            gram = cur;
+        }
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
-    }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << gram;
     return 0;
 }

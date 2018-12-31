@@ -30,25 +30,39 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     int n;
     cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    vector<vector<char>> grid(n, vector<char>(n));
+    for(int i = 0 ; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            char c;
+            cin >> c;
+            grid[i][j] = c;
+        }
     }
-    if(sum % 3 != 0) {
-        cout << 0;
+    char d = grid[0][0];
+    char nd = grid[0][1];
+    if(d == nd) {
+        cout << "NO";
         return 0;
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    for(int i = 0 ; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(i == j || i + j == n - 1) {
+                if(grid[i][j] != d) {
+                    cout << "NO";
+                    return 0;
+                }
+            }
+            else {
+                if(grid[i][j] != nd) {
+                    cout << "NO";
+                    return 0;
+                }
+            }
+        }
+    }
+    cout << "YES";
     return 0;
 }

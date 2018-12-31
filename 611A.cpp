@@ -30,25 +30,27 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    
+    int days[] = {31, 29, 31, 30, 31, 30, 31 , 31, 30, 31, 30, 31};
+    int w = 4;
+    int week[7] = {};
+    int day[32] = {};
+    for(int i = 0; i < 12; i++) {
+        for(int j = 1; j <= days[i]; j++) {
+            week[w]++;
+            w = (w + 1) % 7;
+            day[j]++;
+        }
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    int num;
+    cin >> num;
+    string skip, type;
+    cin >> skip >> type;
+    if(type == "week") {
+        cout << week[num-1];
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    else {
+        cout << day[num];
+    }
     return 0;
 }

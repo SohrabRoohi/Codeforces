@@ -30,25 +30,19 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    
+    double a, b, c, d;
+    cin >> a >> b >> c >> d;
+    double misha = max(3 * a / 10, a - a * c / 250);
+    double vasya = max(3 * b / 10, b - b * d / 250);
+    if(misha > vasya) {
+        cout << "Misha";
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    else if(misha < vasya) {
+        cout << "Vasya";
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    else {
+        cout << "Tie";
+    }
     return 0;
 }

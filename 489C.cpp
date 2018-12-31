@@ -23,38 +23,40 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
+    string lans, sans;
     int m, s;
     cin >> m >> s;
-    int numLeft = m;
-    string max = "";
-    string min = "";
-    for(int i = 0; i < m; i++) {
-        int toAdd = s  - numLeft;
-        if(toAdd < 0) {
-            max = "-1";
-            min = "-1";
-            break;
-        }
-        if(numLeft == 1) {
-            toAdd = s;
-            if(toAdd > 9) {
-                max = "-1";
-                min = "-1";
-                break;
-            }
-        }
-        if(toAdd > 9) {
-            toAdd = 9;
-        }
-        s -= toAdd;
-        max += to_string(toAdd);
-        numLeft--;
+    int numLeft = s;
+    int mCopy = m;
+    string largest = "";
+    while(numLeft > 0) {
+        int subtract = min(9, numLeft);
+        largest += to_string(subtract);
+        numLeft -= subtract;
+        mCopy--;
     }
-    min = max;
-    if(min != "-1") {
-        reverse(min.begin(), min.end());
+    while(mCopy > 0 && largest != "") {
+        largest += '0';
+        mCopy--;
     }
-    cout << min << " " << max;
+    lans = largest.size() != m ? "-1" : largest;
+    int needed = s / 9;
+    int leftover = s % 9;
+    string smallest = "";
+    mCopy = m;
+    smallest += leftover != 0 ? to_string(leftover) : "";
+    mCopy--;
+    for(int i = 0; i < needed; i++) {
+        smallest += '9';
+        mCopy--;
+    }
+    while(mCopy > 0 && smallest != "") {
+        smallest += '0';
+        mCopy--;
+    }
+    if(smallest.empty()) {
+        smallest = "-1";
+    }
+    cout << smallest << " " << lans;
     return 0;
 }

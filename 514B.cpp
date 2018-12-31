@@ -30,25 +30,17 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    double x1, y1;
+    cin >> n >> x1 >> y1;
+    unordered_map<double,int> m;
     for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        double x2, y2;
+        cin >> x2 >> y2;
+        double slope = x2-x1 != 0 ? (y2-y1) / (x2-x1) : INT_MAX;
+        m[slope]++;
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
-    }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << m.size();
     return 0;
 }

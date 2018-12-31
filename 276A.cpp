@@ -31,24 +31,15 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    int n, k;
+    cin >> n >> k;
+    int maxV = -INT32_MAX;
     for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        int f, t;
+        cin >> f >> t;
+        int joy = t <= k ? f : f - (t - k);
+        maxV = max(maxV, joy);
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
-    }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << maxV;
     return 0;
 }

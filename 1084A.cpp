@@ -30,25 +30,24 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     int n;
     cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    VI a;
     for(int i = 0; i < n; i++) {
         int v;
         cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        a.push_back(v);
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    int low = 1;
+    int minCost = INT_MAX;
+    for(int x = 1; x <= n; x++) {
+        int cost = 0;
+        for (int i = 1; i <= n; i++) {
+            cost += 2 * a[i-1] * (abs(x-i) + abs(i-low) + abs(low-x));
+        }
+        minCost = min(minCost, cost);
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << minCost;
     return 0;
 }

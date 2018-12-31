@@ -33,22 +33,14 @@ int main() {
 
     int n;
     cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    string t;
+    cin >> t;
+    string s = "";
+    int count = 0;
+    for(int i = 0; i < t.length(); i += count) {
+        s += t[i];
+        count++;
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
-    }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << s;
     return 0;
 }

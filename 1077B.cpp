@@ -33,22 +33,25 @@ int main() {
 
     int n;
     cin >> n;
+    vector<bool> prev(n);
     vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    prev[0] = false;
     for(int i = 0; i < n; i++) {
         int v;
         cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        a.push_back(v);
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    int changes = 0;
+    for(int i = 1; i < n; i++) {
+        if(a[i-1] == 1) {
+            prev[i] = true;
+        }
+        if(prev[i-1] && a[i-1] == 0 && a[i] == 1) {
+            a[i] = 0;
+            changes++;
+        }
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << changes;
+    
     return 0;
 }

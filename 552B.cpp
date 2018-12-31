@@ -30,25 +30,20 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     int n;
     cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    int64 answer = 0;
+    while(n > 0) {
+        double digits = ceil(log10(n));
+        if(log10(n) == (int)log10(n)) {
+            digits++;
+        }
+        int closestPower = (int)round(pow(10, digits - 1));
+        int dist = n - closestPower + 1;
+        answer += digits * dist;
+        n -= dist;
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
-    }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << answer;
     return 0;
 }

@@ -30,25 +30,25 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    
+    int n, m;
+    cin >> n >> m;
+    vector<bool> bulbs(m, false);
     for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        int x1;
+        cin >> x1;
+        for(int j = 0; j < x1; j++) {
+            int y;
+            cin >> y;
+            bulbs[y-1] = true;
+        }
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    for(bool b : bulbs) {
+        if(!b) {
+            cout << "NO";
+            return 0;
+        }
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << "YES";
     return 0;
 }

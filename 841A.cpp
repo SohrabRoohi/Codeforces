@@ -31,24 +31,20 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    unordered_map<char,int> m;
+    for(char c : s) {
+        m[c]++;
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    for(pair<char,int> p : m) {
+        if(p.second > k) {
+            cout << "NO";
+            return 0;
+        }
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << "YES";
     return 0;
 }

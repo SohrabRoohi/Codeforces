@@ -30,25 +30,33 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+    
+    int64 n, m;
+    cin >> n >> m;
+    int64 left = m - 1;
+    int64 right = m + 1;
+    if(left < 1) {
+        left = m;
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    if(right > n) {
+        right = m;
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    if(left > n + 1 - right) {
+        cout << left;
+    }
+    else if(left == n + 1 - right) {
+        if(left == m) {
+            cout << right;
+        }
+        else if(right == m) {
+            cout << left;
+        }
+        else {
+            cout << left;
+        }
+    }
+    else {
+        cout << right;
+    }
     return 0;
 }

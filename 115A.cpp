@@ -27,28 +27,42 @@ typedef unsigned long long int  uint64;
     cout.rdbuf(out.rdbuf());
      */
 
+
+int height(vector<pair<int, vector<int>>> adj, int start) {
+    if(adj[start].second.size() == 0) {
+        return 0;
+    }
+    int h = 0;
+    for(int i = 0; i < adj[start].second.size(); i++) {
+        int thatHeight = 1 + height(adj, adj[start].second[i]);
+        h = max(h, thatHeight);
+    }
+    return h;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     int n;
     cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
+    vector<pair<int, vector<int>>> adj(n);
     for(int i = 0; i < n; i++) {
-        int v;
-        cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        int p;
+        cin >> p;
+        if(p != -1) {
+            adj[p - 1].second.push_back(i);
+        }
+        adj[i].first = p;
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    int groups = 0;
+    for(int i = 0; i < n; i++) {
+        if(adj[i].first == -1) {
+            int h = height(adj, i);
+            groups = max(groups, h);
+        }
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    cout << groups + 1;
+    ifstream in("test");
     return 0;
 }

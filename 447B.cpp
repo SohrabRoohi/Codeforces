@@ -30,25 +30,27 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int n;
-    cin >> n;
-    vector<int> a;
-    a.push_back(0);
-    int64 sum = 0;
-    for(int i = 0; i < n; i++) {
+    
+    string s;
+    int k;
+    cin >> s >> k;
+    unordered_map<char,int> m;
+    vector<pair<int,char>> a;
+    for(int i = 0; i <= 25; i++) {
         int v;
         cin >> v;
-        a.push_back(a[i] + v);
-        sum += v;
+        char cur = (char)('a' + i);
+        m[cur] = v;
+        a.push_back(make_pair(v, cur));
     }
-    if(sum % 3 != 0) {
-        cout << 0;
-        return 0;
+    sort(a.rbegin(), a.rend());
+    int ans = 0;
+    for(int i = 1; i <= s.length(); i++) {
+        ans += i * m[s[i-1]];
     }
-    int64 goal = sum / 3;
-    int64 ways = 0;
-
-    cout << ways;
+    for(int i = s.length() + 1; i <= s.length() + k; i++) {
+        ans += i * a[0].first;
+    }
+    cout << ans;
     return 0;
 }
