@@ -47,14 +47,8 @@ int main() {
     string guest, host, pile;
     cin >> guest >> host >> pile;
     string combined = guest + host;
-    VI pileCount = count(pile);
-    VI combinedCount = count(combined);
-    for(int i = 0; i < 128; i++) {
-        if(pileCount[i] != combinedCount[i]) {
-            cout << "NO";
-            return 0;
-        }
-    }
-    cout << "YES";
+    sort(combined.begin(), combined.end());
+    sort(pile.begin(), pile.end());
+    cout << (combined == pile ? "YES" : "NO");
     return 0;
 }
