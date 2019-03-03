@@ -30,20 +30,18 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    string s;
+    cin >> s;
+    int count = 0;
+    vector<string> names = {"Danil", "Olya", "Slava", "Ann", "Nikita"};
+    for(string name : names) {
+        int index = 0;
+        while(s.find(name,index) != string::npos) {
+            count++;
+            index = s.find(name,index) + 1;
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    cout << (count == 1 ? "YES" : "NO");
     return 0;
 }

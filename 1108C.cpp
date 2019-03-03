@@ -30,20 +30,28 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    string ans = "";
+    vector<string> comb{"RGB", "RBG", "BRG", "BGR", "GRB", "GBR"};
+    int minCost = INT_MAX;
+    for(string base : comb) {
+        int cost = 0;
+        string curAns = "";
+        for(int i = 0; i < s.length(); i++) {
+            if(s[i] != base[i % 3]) {
+                cost++;
+            }
+            curAns += base[i % 3];
+        }
+        if(cost < minCost) {
+            minCost = cost;
+            ans = curAns;
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    cout << minCost << endl << ans;
     return 0;
 }

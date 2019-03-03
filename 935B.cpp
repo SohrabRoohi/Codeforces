@@ -27,23 +27,40 @@ typedef unsigned long long int  uint64;
     cout.rdbuf(out.rdbuf());
      */
 
+bool isLeft(pair<int,int> p){
+    if(p.second > p.first) {
+        return true;
+    }
+    return false;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n;
+    string s;
+    cin >> n >> s;
+    int ans = 0;
+    int x = 0;
+    int y = 0;
+    vector<pair<int,int>> points;
+    for(char c : s) {
+        if(c == 'U') {
+            y++;
+        }
+        else {
+            x++;
+        }
+        points.push_back(make_pair(x,y));
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
+    for(int i = 0; i < points.size(); i++) {
+        if(i != points.size() - 1 && points[i].first == points[i].second) {
+            if(isLeft(points[i-1]) != isLeft(points[i+1])) {
+                ans++;
+            }
+        }
     }
-    cout << N - (A + B + C);
-
+    cout << ans;
     return 0;
 }

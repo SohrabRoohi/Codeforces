@@ -27,23 +27,41 @@ typedef unsigned long long int  uint64;
     cout.rdbuf(out.rdbuf());
      */
 
+bool isPalindrome(string &s) {
+    for(int i = 0; i < s.length() / 2; i++) {
+        if(s[i] != s[s.length() - 1 - i]) {
+            return false;
+        }
+    }
+    return true;
+}
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    string s;
+    cin >> s;
+    int64 ans = -1;
+    for(int i = 0; i < s.length() / 2; i++) {
+        if(s[i] != s[0]) {
+            ans = 2;
+            break;
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
+    for(int i = 0; i < s.length() - 1; i++) {
+        string left = s.substr(i+1, s.length() - i + 1);
+        string right = s.substr(0,i+1);
+        string cur = left + right;
+        if(isPalindrome(cur) && cur != s) {
+            ans = 1;
+        }
     }
-    cout << N - (A + B + C);
+    if(ans == -1) {
+        cout << "Impossible";
+    }
+    else {
+        cout << ans;
+    }
 
     return 0;
 }

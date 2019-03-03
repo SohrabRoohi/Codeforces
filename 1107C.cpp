@@ -30,20 +30,39 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n, k;
+    cin >> n >> k;
+    vector<int64> a;
+    for(int i = 0; i < n; i++) {
+        int64 v;
+        cin >> v;
+        a.push_back(v);
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
+    string s;
+    cin >> s;
+    int64 sum = 0;
+    priority_queue<int64> p;
+    p.push(a[0]);
+    for(int i = 1; i < s.length(); i++) {
+        if(s[i] != s[i-1]) {
+            for(int j = 0; j < k && !p.empty(); j++) {
+                sum += p.top();
+                p.pop();
+            }
+            while(!p.empty()) {
+                p.pop();
+            }
+            p.push(a[i]);
+        }
+        else {
+            p.push(a[i]);
+        }
     }
-    cout << N - (A + B + C);
-
+    for(int j = 0; j < k && !p.empty(); j++) {
+        sum += p.top();
+        p.pop();
+    }
+    cout << sum;
     return 0;
 }

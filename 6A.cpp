@@ -30,20 +30,23 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    vector<int> v;
+    for(int i = 0; i < 4; i++) {
+        int a;
+        cin >> a;
+        v.push_back(a);
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
+    sort(v.begin(), v.end());
+    if(((v[0] + v[1]) > v[2]) || ((v[1] + v[2]) > v[3])) {
+        cout << "TRIANGLE";
     }
-    cout << N - (A + B + C);
+    else if(((v[0] + v[1]) == v[2]) || ((v[1] + v[2]) == v[3])) {
+        cout << "SEGMENT";
+    }
+    else {
+        cout << "IMPOSSIBLE";
+    }
 
     return 0;
 }

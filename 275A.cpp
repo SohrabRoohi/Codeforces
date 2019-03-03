@@ -30,20 +30,31 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int dx[5] = {1, -1, 0, 0, 0};
+    int dy[5] = {0, 0, 1, -1, 0};
+    vector<vector<bool>> grid(3, vector<bool>(3, true));
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            int times;
+            cin >> times;
+            times %= 2;
+            if(times) {
+                for(int k = 0; k < 5; k++) {
+                    int x = dx[k];
+                    int y = dy[k];
+                    if(i + x >= 0 && i + x < 3 && j + y >= 0 && j + y < 3) {
+                        grid[i+x][j+y] = !grid[i+x][j+y];
+                    }
+                }
+            }
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
+    for(int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            cout << grid[i][j];
+        }
+        cout << endl;
     }
-    cout << N - (A + B + C);
-
     return 0;
 }

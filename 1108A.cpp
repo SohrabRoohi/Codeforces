@@ -31,19 +31,17 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    int q;
+    cin >> q;
+    for(int i  = 0 ; i < q; i++) {
+        int64 l1, r1, l2 , r2;
+        cin >> l1 >> r1 >> l2 >> r2;
+        if (l1 != l2) {
+            cout << l1 << " " << l2;
+        } else {
+            cout << l1 << " " << r2;
+        }
+        cout << endl;
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
     return 0;
 }

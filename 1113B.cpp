@@ -26,24 +26,39 @@ typedef unsigned long long int  uint64;
     ofstream out("C:\\Users\\Sohrab\\CLionProjects\\CodeforcesGIT\\output.txt");
     cout.rdbuf(out.rdbuf());
      */
-
+int64 findLargestDivisor(int64 n, int64 sum, int64 &ans, vector<int64> &v, int64 cur) {
+    for(int64 i = (int64)sqrt(n); i >= 2; i--) {
+        if(n % i == 0) {
+            int64 temp = sum;
+            temp -= v[0];
+            temp -= v[cur];
+            temp += v[0] * i;
+            temp += v[cur] / i;
+            ans = min(ans,temp);
+        }
+    }
+}
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    int n;
+    cin >> n;
+    vector<int64> v;
+    int64 sum = 0;
+    for(int i = 0; i < n; i++) {
+        int64 ai;
+        cin >> ai;
+        v.push_back(ai);
+        sum += ai;
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
+    int64 ans = sum;
+    sort(v.begin(), v.end());
+    int64 index = -1;
+    int64 divisor = -1;
+    for(int i = 1; i < v.size(); i++) {
+        findLargestDivisor(v[i], sum, ans, v, i);
     }
-    cout << N - (A + B + C);
-
+    cout << ans;
     return 0;
 }

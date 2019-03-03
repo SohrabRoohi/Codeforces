@@ -31,19 +31,51 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
+    string s;
+    cin >> s;
+    int fB, lB;
+    fB = -1;
+    lB = -1;
+    for(int i = 0; i < s.length(); i++) {
+        if(s[i] == '[') {
+            fB = i;
+            break;
+        }
+    }
+    for(int i = s.length() - 1; i >= 0; i--) {
+        if(s[i] == ']') {
+            lB = i;
+            break;
+        }
+    }
+    if(fB == -1 || lB == -1 || lB < fB) {
         cout << -1;
         return 0;
     }
-    if(A + B + C >= N) {
+    int fC = -1;
+    int lC = -1;
+    for(int i = fB + 1; i < lB; i++) {
+        if(s[i] == ':') {
+            fC = i;
+            break;
+        }
+    }
+    for(int i = lB - 1; i > fB; i--) {
+        if(s[i] == ':') {
+            lC = i;
+            break;
+        }
+    }
+    if(fC == -1 || lC == -1 || fC == lC) {
         cout << -1;
         return 0;
     }
-    cout << N - (A + B + C);
-
+    int count = 0;
+    for(int i = fC + 1; i < lC; i++) {
+        if(s[i] == '|') {
+            count++;
+        }
+    }
+    cout << 4 + count;
     return 0;
 }

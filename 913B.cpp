@@ -27,23 +27,34 @@ typedef unsigned long long int  uint64;
     cout.rdbuf(out.rdbuf());
      */
 
+int dfs(vector<vector<int>> &tree, int index) {
+    if(tree[index].empty()) {
+        return 1;
+    }
+    int count = 0;
+    for(int i = 0; i < tree[index].size(); i++) {
+        count += dfs(tree, tree[index][i]);
+    }
+    if(count < 3) {
+        cout << "No";
+        std::exit(0);
+    }
+    return 0;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n;
+    cin >> n;
+    vector<vector<int>> tree(n+1);
+    for(int i = 2; i <= n; i++) {
+        int pi;
+        cin >> pi;
+        tree[pi].push_back(i);
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    dfs(tree, 1);
+    cout << "Yes";
     return 0;
 }

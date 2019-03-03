@@ -26,24 +26,25 @@ typedef unsigned long long int  uint64;
     ofstream out("C:\\Users\\Sohrab\\CLionProjects\\CodeforcesGIT\\output.txt");
     cout.rdbuf(out.rdbuf());
      */
+bool isVowel(char c) {
+    vector<char> v = {'a', 'e', 'i', 'o', 'u', 'y'};
+    return find(v.begin(), v.end(), c) != v.end();
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    for(int i = 1; i < s.length(); i++) {
+        if(isVowel(s[i-1]) && isVowel(s[i])) {
+            s.erase(s.begin() + i);
+            i--;
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    cout << s;
     return 0;
 }

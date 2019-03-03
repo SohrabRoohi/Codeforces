@@ -26,37 +26,45 @@ typedef unsigned long long int  uint64;
     ofstream out("C:\\Users\\Sohrab\\CLionProjects\\CodeforcesGIT\\output.txt");
     cout.rdbuf(out.rdbuf());
      */
-bool test(int64 n, int64 k) {
-    int64 original = n;
-    int64 taken = 0;
-    while(n > 0) {
-        int64 sub = min(n,k);
-        n -= sub;
-        taken += sub;
-        n -= (n / 10);
-    }
-    return (double)taken >= ((double)original / 2);
-}
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int64 n;
+    
+    int n;
     cin >> n;
-    int64 l = 1;
-    int64 r = n;
-    int64 k = LLONG_MAX;
-    while(l <= r) {
-        int64 m = (l + r) / 2;
-        if(test(n,m)) {
-            k = min(k, m);
-            r = m - 1;
+    int y = 0;
+    for(int i = 0; i < n; i++) {
+        int t;
+        string dir;
+        cin >> t >> dir;
+        if(dir == "East") {
+            if(y == 0 || y == 20000) {
+                cout << "NO";
+                return 0;
+            }
         }
-        else {
-            l = m + 1;
+        else if(dir == "West") {
+            if(y == 0 || y == 20000) {
+                cout << "NO";
+                return 0;
+            }
+        }
+        else if(dir == "North") {
+            y -= t;
+            if(y < 0) {
+                cout << "NO";
+                return 0;
+            }
+        }
+        else if(dir == "South") {
+            y += t;
+            if(y > 20000) {
+                cout << "NO";
+                return 0;
+            }
         }
     }
-    cout << k;
+    cout << (y == 0 ? "YES" : "NO");
     return 0;
 }

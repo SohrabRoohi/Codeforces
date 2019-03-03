@@ -30,20 +30,30 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n, m;
+    cin >> n >> m;
+    map<int,int> map;
+    string ans = "";
+    for(int i = 0; i < m; i++) {
+        int ai;
+        cin >> ai;
+        map[ai]++;
+        if(map.size() >= n) {
+            for (auto it = map.begin(); it != map.end();) {
+                auto it2 = next(it);
+                it->second--;
+                if(it->second == 0) {
+                    map.erase(it->first);
+                }
+                it = it2;
+            }
+            ans += '1';
+        }
+        else {
+            ans += '0';
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    cout << ans;
     return 0;
 }

@@ -27,23 +27,26 @@ typedef unsigned long long int  uint64;
     cout.rdbuf(out.rdbuf());
      */
 
+bool isPrime(int n) {
+    for(int i = 2; i < n; i++) {
+        if(n % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n;
+    cin >> n;
+    for(int m = 1; m <= 10e3; m++) {
+        int val = n * m + 1;
+        if(!isPrime(val)) {
+            cout << m;
+            return 0;
+        }
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
     return 0;
 }

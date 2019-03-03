@@ -27,23 +27,29 @@ typedef unsigned long long int  uint64;
     cout.rdbuf(out.rdbuf());
      */
 
+bool contains(int64 n) {
+    n = abs(n);
+    while(n != 0) {
+        if(n % 10 == 8) {
+            return true;
+        }
+        n /= 10;
+    }
+    return false;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int64 a;
+    cin >> a;
+    int64 count = 0;
+    do {
+        count++;
+        a++;
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    while(!contains(a));
+    cout << count;
     return 0;
 }

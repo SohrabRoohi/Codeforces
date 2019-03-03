@@ -30,20 +30,17 @@ typedef unsigned long long int  uint64;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    int A, B, C, N;
-    cin >> A >> B >> C >> N;
-    A -= C;
-    B -= C;
-    if(A < 0 || B < 0) {
-        cout << -1;
-        return 0;
+    
+    int n, v;
+    cin >> n >> v;
+    int capacity = 0;
+    int cost = 0;
+    for(int i = 1; i <= n; i++) {
+        int needed = min(max(0,n-i-capacity),v-capacity);
+        cost += needed * i;
+        capacity += needed;
+        capacity--;
     }
-    if(A + B + C >= N) {
-        cout << -1;
-        return 0;
-    }
-    cout << N - (A + B + C);
-
+    cout << cost;
     return 0;
 }
